@@ -103,3 +103,5 @@ ENV/
 
 session/
 storage/
+*.swp
+conf.py

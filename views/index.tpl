@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <div id="exhibition"> {{!content}}! </div>
+    <div id="exhibition"> {{!content}} </div>
     <div id="editor">
         <div id="_editor">
         </div>
@@ -51,7 +51,7 @@
             });
         }
         $(document).ready(function(){
-            editor.$txt.html('{{!content}}!');
+            editor.$txt.html('{{!content}}');
             exhibit();
         });
     </script>

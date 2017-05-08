@@ -1,5 +1,4 @@
 #encoding:utf8
-import conf
 import bottle
 from bottle import route, get, post, request, response, run, _stderr, hook, redirect, template
 import json
@@ -13,6 +12,15 @@ import shutil
 import datetime
 import bottlesession
 import hashlib
+try:
+    import conf
+    users = conf.users
+    _stderr('load conf\n')
+except:
+    _stderr('load default\n')
+    users = {
+        'test':'098f6bcd4621d373cade4e832627b4f6'
+    }
 
 
 @hook('before_request')
@@ -50,7 +58,7 @@ def login():
 @post('/login')
 def verify():
     user = request.forms.user
-    if conf.user.has_key(user) and conf.user[user] == hashlib.md5(request.forms.password).hexdigest():
+    if users.has_key(user) and users[user] == hashlib.md5(request.forms.password).hexdigest():
         home = os.path.join(app['storage'], request.forms.user)
         if not os.path.isdir(home):
             os.mkdir(home)
@@ -126,6 +134,8 @@ def send_fonts(filename = ""):
     return ''
 if not os.path.isdir('session'):
     os.mkdir('session')
+if not os.path.isdir('storage'):
+    os.mkdir('storage')
 
 run(host='', port=sys.argv[1], debug=True,reload=True)
 
