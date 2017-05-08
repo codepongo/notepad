@@ -92,7 +92,7 @@ def show():
     content = ''
     if os.path.exists(data):
         with open(data, 'rb') as f:
-            content = f.read()
+            content = f.read().replace('\n', '')
     return template('index', t=t, app=app['title'], content=content)
         
 @post('/')
