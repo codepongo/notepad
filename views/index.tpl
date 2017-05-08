@@ -2,36 +2,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="author" content="zuohaitao" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{t}} | {{app}}</title>
     <link rel="stylesheet" type="text/css" href="css/wangEditor.css">
-    <style type="text/css">
-        #_editor {
-            width: 100%;
-            height: 500px;
-        }
-        #editor {
-            width: 100%;
-            height: 500px;
-        }
-        #operator {
-            width: 100%;
-            height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/mobi.css">
 </head>
 <body>
+    <div class="flex-center">
+    <div class="container">
     <div id="exhibition"> {{!content}} </div>
     <div id="editor">
-        <div id="_editor">
+        <div id="_editor" style="width:100%;height:400px">
         </div>
     </div>
-    <br />
-    <input type="button" id="operator" />
+    <input class="btn" type="button" id="operator" />
+    </div>
+    </div>
 
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="js/wangEditor.js"></script>
     <script type="text/javascript">
         var editor = new wangEditor('_editor');
+        editor.config.menus = [
+        'bold',
+        'underline',
+        'strikethrough',
+        'img',
+        'table',
+        'unorderlist',
+        'orderlist'
+        ];
         editor.create();
         function exhibit() {
             $("#operator").val("edit");
