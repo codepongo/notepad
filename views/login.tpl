@@ -11,7 +11,7 @@
     <div class="flex-center flex-middle site-box" style="margin:20px">
     <div class="container" id="form" style="margin:20px">
         <div style="height:20px"></div>
-        <form class="form" action="/login" method="POST">
+        <form class="form" action="/login?t={{t}}" method="POST">
         <div class="flex-left units-gap">
             <label class="unit-0 text-right" for="multiple-inputs-name" style="width:100px">用户名：</label>
             <div class="unit"><input type="text" name="user" placeholder="Name"/></div>

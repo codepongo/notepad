@@ -54,7 +54,7 @@ app = {
 @get('/login')
 def login():
     session = app['session'].get_session()
-    return template('login', title='%s | %s' % ('login', app['title']))  
+    return template('login', title='%s | %s' % ('login', app['title']), t = request.query.t)  
 @post('/login')
 def verify():
     user = request.forms.user
@@ -66,29 +66,27 @@ def verify():
         session['valid'] = True
         session['user'] = user
         app['session'].save(session)
-        redirect('/')
-    return template('login', title='%s | %s' % ('login', app['title']))  
+        redirect('/?t=%s' % (request.query.t))
+    return template('login', title='%s | %s' % ('login', app['title']), t = request.query.t)  
 
 def check():
-    sessionid = request.get_cookie('sessionid')
-    if not sessionid:
-        redirect('/login')
-    session = app['session'].get_session()
-    if not session['valid']:
-        redirect('/login')
-
-def repair():
     t = request.query.t
     if t == '':
         t = 'checklist'
+    sessionid = request.get_cookie('sessionid')
+    if not sessionid:
+        redirect('/login?t=%s' % (t))
+    session = app['session'].get_session()
+    if not session['valid']:
+        redirect('/login?t=%s' % (t))
     session = app['session'].get_session()
     home = os.path.join(app['storage'], session['user'])
     return t, os.path.join(home, t) + '.txt'
 
+
 @get('/')
 def show():
-    check()
-    t, data = repair()
+    t, data = check()
     content = ''
     if os.path.exists(data):
         with open(data, 'rb') as f:
@@ -97,8 +95,7 @@ def show():
         
 @post('/')
 def save():
-    check()
-    t, data = repair()
+    t, data = check()
     content = request.body.read()
     with open(data, 'wb') as f:
         f.write(content)
