@@ -102,6 +102,19 @@ def save():
     return template('index', t=t, app=app['title'], content=content)
     return ''
 
+@get('/image/:filename')
+def send_image(filename = ""):
+    mime = {
+        'png':'image/x-png',
+        'ico':'image/x-ico',
+    }
+    ''' send image requested file'''
+    filename = os.path.join(os.path.join(os.path.dirname(__file__), 'image'), filename)
+    if os.path.exists(filename):
+        response.content_type = mime[os.path.splitext(filename)[1][1:]]
+        return open(filename, "rb").read()
+    return ''
+
 @get('/css/:filename')
 def send_css(filename = ""):
     ''' send css requested file'''
