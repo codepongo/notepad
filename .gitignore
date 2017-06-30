@@ -105,3 +105,4 @@ session/
 storage/
 *.swp
 conf.py
+.DS_Store
