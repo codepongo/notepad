@@ -147,5 +147,5 @@ if not os.path.isdir('session'):
 if not os.path.isdir('storage'):
     os.mkdir('storage')
 
-run(host='', port=sys.argv[1], debug=True,reload=True)
+run(host='', port=sys.argv[1] if len(sys.argv) > 1 else 8080, debug=True,reload=True)
 
