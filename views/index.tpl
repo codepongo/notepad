@@ -52,6 +52,7 @@
             });
         }
         $(document).ready(function(){
+<% content = content.replace("'", "\\'").replace('\n', '') %>
             editor.$txt.html('{{!content}}');
             exhibit();
         });
